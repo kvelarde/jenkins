@@ -1,0 +1,1 @@
+docker service create --name jenkins-agent -e USER_NAME_SECRET=jenkins-user -e PASSSWORD_SECRET=jenkins-pass -e COMMAND_OPTIONS="-master http://34.214.176.16:8090 -labels 'docker' -executors 5" --mode global --constraint 'node.labels.env == jenkins-agent' --mount "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock" vfarcic/jenkins-swarm-agent
