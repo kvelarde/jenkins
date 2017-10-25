@@ -1,17 +1,27 @@
-FROM jenkins
+#FROM jenkins
+FROM vfarcic/jenkins
 
 USER root
 
-RUN apt-get -y update \
-  && apt-get -y install git python-pip \
-  && git clone https://git.openstack.org/openstack-infra/jenkins-job-builder \
+RUN apk add --update \
+    python \
+    python-dev \
+    py-pip \
+    build-base
+
+RUN apk -U add git
+RUN apk -U add wget
+RUN apk -U add unzip
+
+
+RUN mkdir /jenkins_jobs
+COPY jenkins_job.ini /jenkins_jobs/
+
+RUN git clone https://git.openstack.org/openstack-infra/jenkins-job-builder \
   && ( cd jenkins-job-builder && pip install -r test-requirements.txt -e . ) 
 
 COPY plugins.txt /usr/share/jenkins/ref/
 COPY executors.groovy /usr/share/jenkins/ref/init.groovy.d/executors.groovy
-
-RUN mkdir /jenkins_jobs
-COPY jenkins_jobs/* /jenkins_jobs
 
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/ref/plugins.txt
 
