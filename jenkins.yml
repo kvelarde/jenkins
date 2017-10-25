@@ -1,0 +1,52 @@
+version: '3.1'
+
+services:
+
+  master:
+    image: localhost:5000/fmc-jenkins:0.1
+    ports:
+      - 8090:8080
+      - 50000:50000
+    environment:
+      - JENKINS_OPTS="--prefix=/jenkins"
+    networks:
+      - proxy
+      - default
+    deploy:
+      labels:
+        - com.df.notify=true
+        - com.df.distribute=true
+        - com.df.servicePath=/jenkins
+        - com.df.port=8080
+    secrets:
+      - jenkins-user
+      - jenkins-pass
+
+  agent:
+    image: localhost:5000/fmc-jenkins-swarm-agent:0.1
+    environment:
+      - USER_NAME_SECRET=/run/secrets/${JENKINS_USER_SECRET:-jenkins-user}
+      - PASSWORD_SECRET=/run/secrets/${JENKINS_PASS_SECRET:-jenkins-pass}
+      - COMMAND_OPTIONS=-master http://master:8080/jenkins -labels 'jenkins-agent' -executors 4
+    networks:
+      - default
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    secrets:
+      - jenkins-user
+      - jenkins-pass
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  proxy:
+    external: true
+  default:
+    external: false
+
+secrets:
+  jenkins-user:
+    external: true
+  jenkins-pass:
+    external: true

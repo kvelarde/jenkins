@@ -20,3 +20,6 @@ docker stack deploy -c docker-proxy-stack.yml proxy
 
 # add seed job
 docker run -dti --rm jjb:0.1
+
+# Deploy stack
+docker stack deploy -c jenkins.yml jenkins
