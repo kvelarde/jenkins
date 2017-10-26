@@ -15,6 +15,9 @@ RUN apk -U add unzip
 RUN mkdir /jenkins_jobs
 COPY jenkins_job.ini /jenkins_jobs/
 
+RUN pip install consulate
+RUN pip install awscli
+
 RUN git clone https://git.openstack.org/openstack-infra/jenkins-job-builder \
   && ( cd jenkins-job-builder && pip install -r test-requirements.txt -e . ) 
 
