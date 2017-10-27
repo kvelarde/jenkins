@@ -6,6 +6,7 @@ RUN apk add --update \
     python \
     python-dev \
     py-pip \
+    jq \
     build-base
 
 RUN apk -U add git
