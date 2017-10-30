@@ -5,6 +5,7 @@ USER root
 RUN apk add --update \
     python \
     python-dev \
+    curl \
     py-pip \
     jq \
     build-base
