@@ -17,6 +17,7 @@
           [
             'https://github.com/kvelarde/kgo-example-web.git' : 'master',
             'https://github.com/kvelarde/consul_manage.git' : 'master',
+            'https://github.com/kvelarde/swarm-nodes.git' : 'master',
             'https://github.com/kvelarde/squid_proxy.git' : 'master'
           ].each {
             k, v -> git branch: "${v}", url: "${k}"
