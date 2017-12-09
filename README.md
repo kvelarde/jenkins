@@ -4,10 +4,10 @@ Jenkins Dockerfile
 Build -
 ------
 cd master
-docker build -t fmc-jenkins:0.1 .
+docker build -t my-jenkins:0.1 .
 
 cd slave
-docker build -t localhost:5000/fmc-jenkins-swarm-agent:0.1 .
+docker build -t localhost:5000/my-jenkins-swarm-agent:0.1 .
 
 cd jjb
 build -t localhost:5000/jjb:0.1 .

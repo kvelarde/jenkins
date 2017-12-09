@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   master:
-    image: localhost:5000/fmc-jenkins:0.1
+    image: localhost:5000/my-jenkins:0.1
     ports:
       - 8090:8080
       - 50000:50000
@@ -23,7 +23,7 @@ services:
       - jenkins-pass
 
   agent:
-    image: localhost:5000/fmc-jenkins-swarm-agent:0.1
+    image: localhost:5000/my-jenkins-swarm-agent:0.1
     environment:
       - USER_NAME_SECRET=/run/secrets/${JENKINS_USER_SECRET:-jenkins-user}
       - PASSWORD_SECRET=/run/secrets/${JENKINS_PASS_SECRET:-jenkins-pass}
