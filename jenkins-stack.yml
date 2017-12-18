@@ -3,7 +3,11 @@ version: '3.1'
 services:
 
   master:
+<<<<<<< HEAD:jenkins-stack.yml
     image: kvad/jenkins-docker:0.3
+=======
+    image: localhost:5000/my-jenkins:0.1
+>>>>>>> b08cd5c7d562ad50ee7d53c8d350c6781c7bc651:jenkins.yml
     ports:
       - 8090:8080
       - 50000:50000
@@ -23,7 +27,11 @@ services:
       - jenkins-pass
 
   agent:
+<<<<<<< HEAD:jenkins-stack.yml
     image: kvad/jenkins-swarm-agent:0.3
+=======
+    image: localhost:5000/my-jenkins-swarm-agent:0.1
+>>>>>>> b08cd5c7d562ad50ee7d53c8d350c6781c7bc651:jenkins.yml
     environment:
       - USER_NAME_SECRET=/run/secrets/${JENKINS_USER_SECRET:-jenkins-user}
       - PASSWORD_SECRET=/run/secrets/${JENKINS_PASS_SECRET:-jenkins-pass}
